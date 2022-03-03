@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# This script is for testing purpose
+# This script print best school and say hi on the 9th iteration
 
 i=0
 

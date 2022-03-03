@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# This script is for testing purpose
+# This script print "Best School" 10x
 
 i=0
 
