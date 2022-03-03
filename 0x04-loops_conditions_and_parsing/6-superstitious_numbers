@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# print bad luck in 4, 8 and 17th iterations
+
+i=0
+
+while [ $i -lt 20 ]
+do
+	case $i in
+		4)
+		echo "bad luck from China"
+		echo $((i + 1))
+		;;
+
+		8)
+		echo "bad luck from Japan"
+		echo $((i + 1))
+		;;
+
+		17)
+		echo "bad luck from Italy"
+		echo $((i + 1))
+		;;
+
+		*)
+		echo $((i + 1))
+		;;
+	esac
+	((i++))
+done
