@@ -1,1 +1,6 @@
-This file is mandatory in all ALX School projects.
+# Devops projects
+
+- Bash scripting
+- SSH
+
+
