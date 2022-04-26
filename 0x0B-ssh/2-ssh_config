@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# configuration file for ssh
+
+Host
+	HostName 34.139.22.235
+	Port 22
+	User ubuntu
+	PasswordAuthentication no
+	IdentityFile "$HOME/.ssh/school"
