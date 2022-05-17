@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # tansfer a file from your server to remote server
 
-if [ "$#" -eq 4 ]
+if [[ "$#" -eq 4 ]]
 then
 	scp -i "$4" -o StrictHostKeyChecking=no "$1" "$3@$2":~/
 else
