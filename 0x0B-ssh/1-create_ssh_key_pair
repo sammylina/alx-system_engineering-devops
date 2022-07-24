@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-# generate ssh key pairs with paraphrase
-
-ssh-keygen -t rsa -b 4096 -f school -P betty

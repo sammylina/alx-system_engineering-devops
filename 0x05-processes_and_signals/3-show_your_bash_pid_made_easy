@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-# print the PID of bash and the script it self
-
-echo "$PPID bash"
-echo "$$ bash"
