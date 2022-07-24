@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-# print file in current dir removing prefix integers
-
-
-for file in *
-do
-	echo "$file" | cut -f 2 -d '-'
-done
