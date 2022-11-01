@@ -3,7 +3,6 @@
 """featch all title of all hot articles for a given subreddit
 """
 
-import sys
 import requests
 
 
