@@ -1,0 +1,3 @@
+Host alx_web01
+    IdentityFile "~/.ssh/school"
+    PreferredAuthentications publickey
