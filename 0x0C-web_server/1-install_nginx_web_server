@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #Install and configure nginx server to respond 'Hello World!'
 
-apt-get install nginx
+apt-get -y install nginx
 ufw allow 'Nginx HTTP'
 echo 'Hello World!' > /var/www/html/*.html
