@@ -2,6 +2,5 @@
 #Install and configure nginx server to respond 'Hello World!'
 
 apt-get -y install nginx
-ufw allow 'Nginx HTTP'
 echo 'Hello World!' > /var/www/html/*.html
 service nginx restart 
