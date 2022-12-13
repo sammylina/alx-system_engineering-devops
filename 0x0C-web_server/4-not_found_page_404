@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+#Install and configure nginx server to respond 'Hello World!'
+
+apt-get -y upgrade
+apt-get -y install nginx
+echo "Hello World!" > /var/www/html/index.nginx-debian.html
+echo "Ceci n'est pas une page" > /var/www/html/error.html
+sed -i '/try_files.*/ a \\t\terror_page 404 /error.html;'
+service nginx restart 
