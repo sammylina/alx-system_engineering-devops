@@ -2,5 +2,5 @@
 #Install and configure nginx server to respond 'Hello World!'
 
 apt-get -y install nginx
-echo "Hello World!" > /var/www/html/index.nginx-debian.html
+echo "Hello World!" |  sudo tee var/www/html/index.nginx-debian.html > /dev/null
 service nginx restart 
