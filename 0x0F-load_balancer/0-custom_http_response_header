@@ -6,7 +6,7 @@ apt-get -y install nginx
 echo "Hello World!" > /var/www/html/index.nginx-debian.html
 echo "Ceci n'est pas une page" > /var/www/html/error.html
 sed -i '/#/d' /etc/nginx/sites-available/default
-sed -i "/location.*/ a \\t\\tadd_header X-Served-By $hostname;" /etc/nginx/sites-available/default
+sed -i '/server_name.*/ a \\tadd_header X-Served-By $hostname;' /etc/nginx/sites-available/default
 sed -i '/try_files.*/ a \\t\terror_page 404 /error.html;' /etc/nginx/sites-available/default
 sed -i '/try_file.*/a \\trewrite \^\/redirect_me https://youtube.com permanent;' /etc/nginx/sites-available/default
 service nginx restart 
