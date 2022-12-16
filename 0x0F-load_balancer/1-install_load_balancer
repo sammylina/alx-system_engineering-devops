@@ -19,7 +19,7 @@ fi
 sed -i 's/mode.*http/mode\ttcp/' "$haproxy_conf"
 sed -i 's/option.*httplog/option\ttcplog/' "$haproxy_conf"
 # manage HAproxy via init script
-sed -i 's/^[#E].*ABLED.*/ENABLED=1/' '/etc/default/haproxy'
+echo "ENABLED=1" >> '/etc/default/haproxy'
 # add configuration
 echo -e '
 frontend lb
@@ -31,6 +31,6 @@ backend webserver
 	mode tcp
 	server web-01 54.84.29.152:80 check
 	server web-02 18.235.248.36:80 check
-' | sudo tee -a "$haproxy_conf"
+' | sudo tee -a "$haproxy_conf" > /dev/null
 
 service haproxy restart
