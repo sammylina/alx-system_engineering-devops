@@ -15,9 +15,6 @@ then
 else
 	cp '/etc/haproxy/haproxy.cfg.orig' "$haproxy_conf"
 fi
-# loadbalancing at leayer 4
-sed -i 's/mode.*http/mode\ttcp/' "$haproxy_conf"
-sed -i 's/option.*httplog/option\ttcplog/' "$haproxy_conf"
 # manage HAproxy via init script
 echo "ENABLED=1" >> '/etc/default/haproxy'
 # add configuration
@@ -28,7 +25,6 @@ frontend lb
 
 backend webserver
 	balance roundrobin
-	mode tcp
 	server web-01 54.84.29.152:80 check
 	server web-02 18.235.248.36:80 check
 ' | sudo tee -a "$haproxy_conf" > /dev/null
