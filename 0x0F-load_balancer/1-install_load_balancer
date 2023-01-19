@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+#install and configure HAProxy load balancer at layer 4
+
+apt-get -y update
+apt-get -y install --no-install-recommends software-properties-common
+add-apt-repository -y ppa:vbernat/haproxy-2.2
+apt-get -y install haproxy=2.2.\*
+
+echo "ENABLED=1" >> /etc/default/haproxy
+
+if [ ! -f '/etc/haproxy/haproxy.cfg.orig' ]
+then
+  cp /etc/haproxy/haproxy.cfg /etc/haproxy/haproxy.cfg.orig
+fi
+
+echo "frontend load_balancer
+  bind *:80
+  mode tcp
+  default_backend webserver
+backend webserver
+  mode tcp
+  balance roundrobin
+  server web-01 54.175.153.26:80 check
+  server web-02 54.160.126.68:80 check" >> /etc/haproxy/haproxy.cfg
+
+service haproxy restart
