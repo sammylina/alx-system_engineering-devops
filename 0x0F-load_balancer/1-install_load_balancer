@@ -16,6 +16,7 @@ fi
 echo "frontend load_balancer
   bind *:80
   mode tcp
+  option tcplog
   default_backend webserver
 backend webserver
   mode tcp
