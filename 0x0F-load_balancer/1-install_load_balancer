@@ -18,7 +18,6 @@ echo "frontend load_balancer
   mode http
   default_backend webserver
 backend webserver
-  mode tcp
   balance roundrobin
   server web-01 54.175.153.26:80 check
   server web-02 54.160.126.68:80 check" >> /etc/haproxy/haproxy.cfg
