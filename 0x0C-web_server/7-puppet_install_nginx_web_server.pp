@@ -14,7 +14,7 @@ package {'nginx':
 
 file {'/var/www/html/index.html':
   ensure  => present,
-  content => 'Hello World',
+  content => 'Hello World!',
 }
 
 file_line {'redirect and return 301':
