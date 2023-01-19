@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 #Install nginx and configure its reponse header
 
-apt-get update
-apt-get install nginx
+apt-get -y update
+apt-get -y install nginx
 sed -i '/#/d' /etc/nginx/sites-available/default
-sed -i 's/listen 80 default_server;/&\n\tadd_header X-Served-By ${host};/' /etc/nginx/sites-available/default
+sed -i 's/listen 80 default_server;/&\n\tadd_header X-Served-By ${hostname};/' /etc/nginx/sites-available/default
 service nginx restart
