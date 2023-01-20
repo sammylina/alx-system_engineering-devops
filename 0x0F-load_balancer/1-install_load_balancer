@@ -15,7 +15,7 @@ else
   cp /etc/haproxy/haproxy.cfg.orig /etc/haproxy/haproxy.cfg
 fi
 
-echo "frontend load_balancer
+echo -e "frontend load_balancer
 \tbind *:80
 \tdefault_backend webserver
 backend webserver
