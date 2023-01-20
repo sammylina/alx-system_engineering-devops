@@ -21,6 +21,7 @@ echo "frontend load_balancer
 backend webserver
 \tbalance roundrobin
 \tserver web-01 54.175.153.26:80 check
-\tserver web-02 54.160.126.68:80 check" >> /etc/haproxy/haproxy.cfg
+\tserver web-02 54.160.126.68:80 check
+" >> /etc/haproxy/haproxy.cfg
 
 service haproxy restart
