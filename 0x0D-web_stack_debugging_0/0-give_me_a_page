@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+#start apache webserver that is not running
+
+service apache2 start
