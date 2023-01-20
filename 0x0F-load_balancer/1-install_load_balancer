@@ -11,11 +11,12 @@ echo "ENABLED=1" >> /etc/default/haproxy
 if [ ! -f '/etc/haproxy/haproxy.cfg.orig' ]
 then
   cp /etc/haproxy/haproxy.cfg /etc/haproxy/haproxy.cfg.orig
+else
+  cp /etc/haproxy/haproxy.cfg.orig /etc/haproxy/haproxy.cfg
 fi
 
 echo "frontend load_balancer
-  bind 0.0.0.0:80
-  mode http
+  bind *:80
   default_backend webserver
 backend webserver
   balance roundrobin
