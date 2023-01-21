@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 #configure nginx to listen on port 80 but the service is not running
-
 ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
-pgrep nginx | head -1 > /run/nginx.pid
-nginx -s reload
+service nginx start
 echo "" > /run/nginx.pid
