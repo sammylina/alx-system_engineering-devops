@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+#kill running linux process by sending SIGKILL signal
+
+pkill -f --signal 9 "./7-highlander"
