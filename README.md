@@ -1,1 +1,6 @@
-Linux process and signals
+# Devops projects
+
+- Bash scripting
+- SSH
+
+
