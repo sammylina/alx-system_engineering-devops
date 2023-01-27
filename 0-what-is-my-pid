@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-#Print PID of this bash script
-
-echo "$$"
