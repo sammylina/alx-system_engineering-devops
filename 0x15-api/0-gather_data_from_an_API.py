@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-# Fetch user's tasks from fake API
+"""Fetch user's tasks from fake API
+"""
 
 if __name__ == '__main__':
 
