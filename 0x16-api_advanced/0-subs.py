@@ -1,11 +1,14 @@
 #!/usr/bin/python3
-# print number of subscribers from a given subreddit
+"""print number of subscribers from a given subreddit
+"""
 
 import requests as req
+import sys
 
 
 def number_of_subscribers(subreddit):
-    # print the number of subscriber
+    """print the number of subscriber
+    """
 
     url = 'https://reddit.com/r/{}/about.json'.format(subreddit)
     headers = {'User-Agent': 'alx'}
@@ -19,7 +22,6 @@ def number_of_subscribers(subreddit):
 
 if __name__ == '__main__':
 
-    import sys
-
-    subscribers = number_of_subscribers(sys.argv[1])
+    subreddit = sys.argv[1] if (len(sys.argv) > 1) else ""
+    subscribers = number_of_subscribers(subreddit)
     print(subscribers)
