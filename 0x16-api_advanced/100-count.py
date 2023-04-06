@@ -52,11 +52,12 @@ def print_count_list(count_list):
 def count(word_list, title, count_list):
     """count
     """
-    title = title.lower()
+    title = title.lower().split()
     for word in word_list:
         if word.lower() in title:
+            count = len([t for t in title if word.lower() == t])
             if count_list.get(word.lower()):
-                count_list[word.lower()] += title.count(word.lower())
+                count_list[word.lower()] += count
             else:
-                count_list[word.lower()] = title.count(word.lower())
+                count_list[word.lower()] = count
     return count_list
