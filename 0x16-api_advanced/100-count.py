@@ -30,6 +30,7 @@ def count_words(subreddit, word_list, count_list={}, after=None):
             print_count_list(count_list)
             return
     else:
+        print("")
         return
 
 
@@ -44,6 +45,8 @@ def print_count_list(count_list):
         for item in sorted_list:
             if item[1]:
                 print('{}: {}'.format(item[0], item[1]))
+    else:
+        print('')
 
 
 def count(word_list, title, count_list):
