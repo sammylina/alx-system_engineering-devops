@@ -1,4 +1,6 @@
 #!/usr/bin/python3
+""" 100-count module
+"""
 
 import collections
 import requests
