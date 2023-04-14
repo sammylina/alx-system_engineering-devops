@@ -1,63 +1,45 @@
 #!/usr/bin/python3
-""" Parse all hot articles title of subreddit and count
-the number of given keywords
-"""
 
-import requests as req
+import collections
+import requests
 
 
-def count_words(subreddit, word_list, count_list={}, after=None):
-    """count function
+def fill_list(subreddit, hot_list=[], after=None):
+    """Create list of words in hot titles of specified subreddit
     """
-    url = 'https://www.reddit.com/r/{}/hot.json'.format(subreddit)
-    headers = {'User-Agent': 'alx'}
-    params = {'after': after}
-
-    res = req.get(url, headers=headers, params=params, allow_redirects=False)
-
-    if res.status_code == 200:
-        data = res.json().get('data')
-        after = data.get('after')
-        for reddit in data.get('children'):
-            title = reddit.get('data').get('title')
-            count_list = count(word_list, title, count_list)
-        if after:
-            return count_words(subreddit,
-                               word_list,
-                               count_list=count_list,
-                               after=after)
-        else:
-            print_count_list(count_list)
-            return
-    else:
-        print("")
-        return
+    req = requests.get("https://www.reddit.com/r/{}/hot.json?after={}".
+                       format(subreddit, after),
+                       headers={"User-agent": "agent"},
+                       allow_redirects=False)
+    if req.status_code != 200:
+        return None
+    after = req.json().get("data").get("after")
+    if after is None:
+        return hot_list
+    for i in req.json().get("data").get("children"):
+        for word in i.get("data").get("title").split():
+            hot_list.append(word.lower())
+    return fill_list(subreddit, hot_list, after)
 
 
-def print_count_list(count_list):
-    """print count
+def count_words(subreddit, word_list):
+    """Finds occurences of specified keywords in a given subreddit
     """
-    if len(count_list) != 0:
-        sorted_list = sorted(count_list.items(),
-                             key=lambda item: (item[1], item[0]),
-                             reverse=True)
-        new_list = {}
-        for item in sorted_list:
-            if item[1]:
-                print('{}: {}'.format(item[0], item[1]))
-    else:
-        print('')
-
-
-def count(word_list, title, count_list):
-    """count
-    """
-    title = title.lower().split()
+    if subreddit is None or subreddit == "" or word_list is None:
+        return None
+    hot_list = fill_list(subreddit)
+    if hot_list is None:
+        return None
+    all_cnt = collections.Counter(hot_list)
+    filtered_cnt = {}
     for word in word_list:
-        if word.lower() in title:
-            count = len([t for t in title if word.lower() == t])
-            if count_list.get(word.lower()):
-                count_list[word.lower()] += count
+        word_l = word.lower()
+        if all_cnt[word_l] > 0:
+            if word in filtered_cnt:
+                filtered_cnt[word] += filtered_cnt[word]
             else:
-                count_list[word.lower()] = count
-    return count_list
+                filtered_cnt[word] = all_cnt[word_l]
+    for k, v in sorted(filtered_cnt.items(),
+                       key=lambda item: item[1], reverse=True):
+        print("{}: {}".format(k, v))
+    return filtered_cnt
