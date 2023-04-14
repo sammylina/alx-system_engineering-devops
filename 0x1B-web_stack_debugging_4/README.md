@@ -1,0 +1,1 @@
+Increase Nginx worker process
