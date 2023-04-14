@@ -1,63 +1,48 @@
 #!/usr/bin/python3
-""" Parse all hot articles title of subreddit and count
-the number of given keywords
-"""
+"""Count it Module"""
 
-import requests as req
+import requests
 
 
-def count_words(subreddit, word_list, count_list={}, after=None):
-    """count function
+def count_words(subreddit, word_list, count_list=[], next_page=None):
+    """Queries the Reddit API, parses the title of all hot
+    articles, and prints a sorted count of given keywords
+    (case-insensitive, delimited by spaces.
     """
+    if not count_list:
+        for word in word_list:
+            count_list.append(dict({'keyword': word,
+                                    'count': 0}))
+
+    user_agent = 'kidusmik'
     url = 'https://www.reddit.com/r/{}/hot.json'.format(subreddit)
-    headers = {'User-Agent': 'alx'}
-    params = {'after': after}
+    if next_page:
+        url += '?after={}'.format(next_page)
 
-    res = req.get(url, headers=headers, params=params, allow_redirects=False)
-
-    if res.status_code == 200:
-        data = res.json().get('data')
-        after = data.get('after')
-        for reddit in data.get('children'):
-            title = reddit.get('data').get('title')
-            count_list = count(word_list, title, count_list)
-        if after:
-            return count_words(subreddit,
-                               word_list,
-                               count_list=count_list,
-                               after=after)
-        else:
-            print_count_list(count_list)
-            return
-    else:
-        print("")
+    headers = {'User-Agent': user_agent}
+    r = requests.get(url, headers=headers, allow_redirects=False)
+    if r.status_code != 200:
         return
 
+    data = r.json()['data']
+    posts = data['children']
+    for post in posts:
+        title = post['data']['title']
+        for item in count_list:
+            title_lower = title.lower()
+            title_list = title_lower.split()
+            item['count'] += title_list.count(item['keyword'].lower())
 
-def print_count_list(count_list):
-    """print count
-    """
-    if len(count_list) != 0:
-        sorted_list = sorted(count_list.items(),
-                             key=lambda item: (item[1], item[0]),
-                             reverse=True)
-        new_list = {}
-        for item in sorted_list:
-            if item[1]:
-                print('{}: {}'.format(item[0], item[1]))
+    next_page = data['after']
+    if next_page is not None:
+        return count_words(subreddit, word_list, count_list, next_page)
     else:
-        print('')
-
-
-def count(word_list, title, count_list):
-    """count
-    """
-    title = title.lower().split()
-    for word in word_list:
-        if word.lower() in title:
-            count = len([t for t in title if word.lower() == t])
-            if count_list.get(word.lower()):
-                count_list[word.lower()] += count
-            else:
-                count_list[word.lower()] = count
-    return count_list
+        sorted_list = sorted(count_list,
+                             key=lambda word: (word['count'], word['keyword']),
+                             reverse=True)
+        keywords_matched = 0
+        for word in sorted_list:
+            if word['count'] > 0:
+                print('{}: {}'.format(word['keyword'], word['count']))
+                keywords_matched += 1
+        return
