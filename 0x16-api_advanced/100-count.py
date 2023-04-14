@@ -1,10 +1,6 @@
 #!/usr/bin/python3
-<<<<<<< HEAD
-""" 100-count module
-=======
 """ Parse all hot articles title of subreddit and count
 the number of given keywords
->>>>>>> parent of 6e1a59d... count occurence of a given word in a subreddit title
 """
 
 import requests as req
